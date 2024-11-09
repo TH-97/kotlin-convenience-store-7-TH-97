@@ -1,16 +1,21 @@
 package store.model
 
 class PromotionsProducts(
-    private val name: String,
-    private val price: Int,
-    private val quantity: Int,
-    private val promotion: String?
-) {
+    override val name: String,
+    override val price: String,
+    override val quantity: String,
+    override val promotion: String?
+) : Products {
     fun display(): String {
-        return if (quantity > 0) {
-            "$name ${price}원 ${quantity}개${if (!promotion.isNullOrEmpty()) " $promotion" else ""}"
-        } else {
-            "$name ${price}원 재고 없음"
-        }
+        return "$name ${price}원 ${quantity}개${if (!promotion.isNullOrEmpty()) " $promotion" else ""}"
+    }
+
+    override fun toString(): String {
+        return "PromotionsProducts(name='$name', price='$price', quantity='$quantity', promotion='$promotion')"
+    }
+
+    fun getName(): String {
+        return name
     }
 }
+

@@ -1,27 +1,52 @@
 package store
 
+import store.model.NormalProducts
+import store.model.PromotionsProducts
+import java.io.File
+
 fun main() {
-//    readProductsFromFile("src/main/resources/products.md")
-//    displayProducts(a)
+    val filePath = "src/main/resources/products.md"
+    val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
+    val qqqq = PromotionsProductsList + NormalProductList
+    println(qqqq)
+
+//    displayProducts(NormalProductList)
+//    displayProducts2(PromotionsProductsList)
 }
 
-//fun readProductsFromFile(filePath: String): List<NormalProducts> {
-//    return File(filePath).useLines { lines ->
-//        lines.drop(1)
-//            .filter { it.isNotBlank() }
-//            .map { line -> parseProduct(line) }
-//            .toList()
-//    }
-//}
-//
-//fun parseProduct(line: String): NormalProducts {
-//    val tokens = line.split(",").map { it.trim() }
-//    return NormalProducts(
-//        name = tokens[0],
-//        price = tokens[1].toInt(),
-//        quantity = tokens[2].toInt(),
-//        promotion = tokens[3].takeIf { it != "null" }
-//    )
-//}
+fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<NormalProducts>> {
+    val lines = File(filePath).readLines().drop(1)
+    val promotionsProducts = mutableListOf<PromotionsProducts>()
+    val normalProducts = mutableListOf<NormalProducts>()
+
+    lines.forEach { line ->
+        val columns = line.split(",")
+        val name = columns[0]
+        val price = columns[1]
+        val quantity = columns[2]
+        val promotion = columns[3]
+        if (promotion == "null") {
+            normalProducts.add(NormalProducts(name, price, quantity, promotion))
+        }
+        if (promotion != "null") {
+            promotionsProducts.add(PromotionsProducts(name, price, quantity, promotion))
+        }
+    }
+
+    return Pair(promotionsProducts, normalProducts)
+}
+
+fun displayProducts(products: List<NormalProducts>) {
+    for (product in products) {
+        println(product.display())
+    }
+}
+
+fun displayProducts2(products: List<PromotionsProducts>) {
+    for (product in products) {
+        println(product.display())
+    }
+}
+
 
 
