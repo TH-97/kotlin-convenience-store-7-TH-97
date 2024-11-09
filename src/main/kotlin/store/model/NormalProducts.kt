@@ -1,11 +1,11 @@
 package store.model
 
 class NormalProducts(
-    override val name: String,
-    override val price: String,
-    override val quantity: String,
-    override val promotion: String?
-) : Products {
+    private val name: String,
+    private val price: String,
+    private val quantity: String,
+    private val promotion: String?
+) {
     fun display(): String {
         return "$name ${price}원 ${quantity}개${if (!promotion.isNullOrEmpty()) " $promotion" else ""}"
     }

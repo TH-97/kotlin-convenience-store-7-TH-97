@@ -6,9 +6,11 @@ import java.io.File
 
 fun main() {
     val filePath = "src/main/resources/products.md"
-    val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
-    val qqqq = PromotionsProductsList + NormalProductList
-    println(qqqq)
+    val (_, _) = parseProductsFile(filePath)
+//    val allProducts: List<Products> = PromotionsProductsList + NormalProductList
+//    for (product in allProducts) {
+//        println(product.promotion)
+//    }
 
 //    displayProducts(NormalProductList)
 //    displayProducts2(PromotionsProductsList)
@@ -36,17 +38,17 @@ fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<Nor
     return Pair(promotionsProducts, normalProducts)
 }
 
-fun displayProducts(products: List<NormalProducts>) {
-    for (product in products) {
-        println(product.display())
-    }
-}
+//fun displayProducts(products: List<NormalProducts>) {
+//    for (product in products) {
+//        println(product.display())
+//    }
+//}
 
-fun displayProducts2(products: List<PromotionsProducts>) {
-    for (product in products) {
-        println(product.display())
-    }
-}
+//fun displayProducts2(products: List<PromotionsProducts>) {
+//    for (product in products) {
+//        println(product.display())
+//    }
+//}
 
 
 
