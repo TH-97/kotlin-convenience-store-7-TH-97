@@ -12,6 +12,9 @@ fun main() {
         promotionsProductsList as MutableList<PromotionsProducts>,
         normalProductList as MutableList<NormalProducts>
     )
+    val promotionFilePath = "src/main/resources/promotions.md"
+    parsePromotionFile(promotionFilePath)
+
 }
 
 fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<NormalProducts>> {
@@ -34,6 +37,13 @@ fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<Nor
     }
 
     return Pair(promotionsProducts, normalProducts)
+}
+
+fun parsePromotionFile(promotionFilePath: String) {
+    val lines = File(promotionFilePath).readLines().drop(1)
+
+    lines.forEach { lines ->
+    }
 }
 
 
