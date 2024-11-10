@@ -1,5 +1,6 @@
 package store
 
+import store.controller.ConvenienceController
 import store.model.NormalProducts
 import store.model.PromotionsProducts
 import java.io.File
@@ -7,6 +8,7 @@ import java.io.File
 fun main() {
     val filePath = "src/main/resources/products.md"
     val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
+    ConvenienceController().saveProducts(PromotionsProductsList, NormalProductList)
 //    displayProducts(NormalProductList)
 //    displayProducts2(PromotionsProductsList)
 }
