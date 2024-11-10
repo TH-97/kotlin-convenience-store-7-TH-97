@@ -4,6 +4,7 @@ import store.controller.ConvenienceController
 import store.model.NormalProducts
 import store.model.Promotion
 import store.model.PromotionsProducts
+import store.service.InitializationProducts
 import java.io.File
 
 fun main() {
@@ -11,11 +12,22 @@ fun main() {
     val (promotionsProductsList, normalProductList) = parseProductsFile(filePath)
     val promotionFilePath = "src/main/resources/promotions.md"
     val promotion = parsePromotionFile(promotionFilePath)
-    ConvenienceController().saveProductsAndPromotion(
+    val (promotionsProductLists, normalProductLists) = saveProductsAndPromotion(
         promotionsProductsList as MutableList<PromotionsProducts>,
         normalProductList as MutableList<NormalProducts>,
-        promotion
     )
+    ConvenienceController.ready(promotionsProductLists, normalProductLists, promotion)
+}
+
+fun saveProductsAndPromotion(
+    promotionsProductsList: MutableList<PromotionsProducts>,
+    normalProductList: MutableList<NormalProducts>,
+): Pair<MutableList<PromotionsProducts>, MutableList<NormalProducts>> {
+    val (pro, nor) = InitializationProducts().initializationProducts(
+        promotionsProductsList,
+        normalProductList
+    )
+    return Pair(pro, nor)
 }
 
 fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<NormalProducts>> {

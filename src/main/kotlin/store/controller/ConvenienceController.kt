@@ -3,33 +3,29 @@ package store.controller
 import store.model.NormalProducts
 import store.model.Promotion
 import store.model.PromotionsProducts
-import store.service.InitializationProducts
+import store.utils.Validator
 import store.view.InputView
 import store.view.OutputView
 
-class ConvenienceController() {
+object ConvenienceController {
     private lateinit var promotionsProducts: MutableList<PromotionsProducts>
     private lateinit var normalProducts: MutableList<NormalProducts>
     private lateinit var promotion: List<Promotion>
-    fun saveProductsAndPromotion(
-        promotionsProductsList: MutableList<PromotionsProducts>,
-        normalProductList: MutableList<NormalProducts>,
+
+    fun ready(
+        promotionsProductLists: MutableList<PromotionsProducts>,
+        normalProductLists: MutableList<NormalProducts>,
         promotion: List<Promotion>
     ) {
-        val (promotionsProductsList, normalProductList) =
-            InitializationProducts().initializationProducts(
-                promotionsProductsList,
-                normalProductList
-            )
-        this.promotionsProducts = promotionsProductsList
-        this.normalProducts = normalProductList
+        this.promotionsProducts = promotionsProductLists
+        this.normalProducts = normalProductLists
         this.promotion = promotion
-        return run()
+
+        run()
     }
 
     fun run() {
         openConvenience()
-        buyProduct()
     }
 
     fun openConvenience() {
@@ -39,16 +35,27 @@ class ConvenienceController() {
 
     fun introductionProducts() {
         OutputView().outputProducts(promotionsProducts, normalProducts)
+        buyProduct()
     }
 
     fun buyProduct() {
-        val purchasedProduct = InputView().howToUse()
-        while (true) {
-            try {
-                purchasedProduct
-            } catch (e: IllegalArgumentException) {
-                println(e)
-            }
+        try {
+            val purchasedProduct = InputView().howToUse()
+            Validator().validatPurchasedProduct(purchasedProduct)
+        } catch (e: IllegalArgumentException) {
+            println(e)
+            buyProduct()
         }
+
+    }
+
+    fun checkProduct(productName: String): Boolean {
+        for (value in normalProducts) {
+            if (value.getName() == productName) return true
+        }
+        for (value in promotionsProducts) {
+            if (value.getName() == productName) return true
+        }
+        return false
     }
 }
