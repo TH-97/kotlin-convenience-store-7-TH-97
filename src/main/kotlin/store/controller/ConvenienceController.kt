@@ -2,16 +2,18 @@ package store.controller
 
 import store.model.NormalProducts
 import store.model.PromotionsProducts
+import store.service.InitializationProducts
 import store.view.OutputView
 
 class ConvenienceController() {
-    private lateinit var promotionsProducts: List<PromotionsProducts>
-    private lateinit var normalProducts: List<NormalProducts>
+    private lateinit var promotionsProducts: MutableList<PromotionsProducts>
+    private lateinit var normalProducts: MutableList<NormalProducts>
 
     fun saveProducts(
-        promotionsProductsList: List<PromotionsProducts>,
-        normalProductList: List<NormalProducts>
+        promotionsProductsList: MutableList<PromotionsProducts>,
+        normalProductList: MutableList<NormalProducts>
     ) {
+        InitializationProducts().initializationProducts(promotionsProductsList, normalProductList)
         this.promotionsProducts = promotionsProductsList
         this.normalProducts = normalProductList
 

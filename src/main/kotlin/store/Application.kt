@@ -8,7 +8,10 @@ import java.io.File
 fun main() {
     val filePath = "src/main/resources/products.md"
     val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
-    ConvenienceController().saveProducts(PromotionsProductsList, NormalProductList)
+    ConvenienceController().saveProducts(
+        PromotionsProductsList as MutableList<PromotionsProducts>,
+        NormalProductList as MutableList<NormalProducts>
+    )
 }
 
 fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<NormalProducts>> {
