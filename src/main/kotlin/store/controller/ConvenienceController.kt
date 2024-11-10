@@ -41,7 +41,8 @@ object ConvenienceController {
     fun buyProduct() {
         try {
             val purchasedProduct = InputView().howToUse()
-            Validator().validatPurchasedProduct(purchasedProduct)
+            Validator().validatePurchasedProduct(purchasedProduct)
+
         } catch (e: IllegalArgumentException) {
             println(e)
             buyProduct()
@@ -57,5 +58,16 @@ object ConvenienceController {
             if (value.getName() == productName) return true
         }
         return false
+    }
+
+    fun checkProductQuality(productName: String, productQuality: Int): Boolean {
+        var sum = 0
+        for (value in normalProducts) {
+            if (value.getName() == productName) sum += value.getQuantity().toInt()
+        }
+        for (value in promotionsProducts) {
+            if (value.getName() == productName) sum += value.getQuantity().toInt()
+        }
+        return productQuality <= sum
     }
 }
