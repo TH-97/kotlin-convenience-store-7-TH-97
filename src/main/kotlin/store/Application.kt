@@ -9,7 +9,6 @@ fun main() {
     val filePath = "src/main/resources/products.md"
     val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
     ConvenienceController().saveProducts(PromotionsProductsList, NormalProductList)
-    ConvenienceController().openConvenience()
 }
 
 fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<NormalProducts>> {

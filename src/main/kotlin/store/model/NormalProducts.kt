@@ -17,4 +17,16 @@ class NormalProducts(
     fun getName(): String {
         return name
     }
+
+    fun getPrice(): String {
+        return String.format("%,d", price.toInt())
+    }
+
+    fun getQuantity(): String {
+        return quantity
+    }
+
+    fun getPromotion(): String? {
+        return promotion
+    }
 }
