@@ -4,13 +4,14 @@ import store.model.NormalProducts
 import store.model.Promotion
 import store.model.PromotionsProducts
 import store.service.InitializationProducts
+import store.view.InputView
 import store.view.OutputView
 
 class ConvenienceController() {
     private lateinit var promotionsProducts: MutableList<PromotionsProducts>
     private lateinit var normalProducts: MutableList<NormalProducts>
     private lateinit var promotion: List<Promotion>
-    fun saveProducts(
+    fun saveProductsAndPromotion(
         promotionsProductsList: MutableList<PromotionsProducts>,
         normalProductList: MutableList<NormalProducts>,
         promotion: List<Promotion>
@@ -28,7 +29,7 @@ class ConvenienceController() {
 
     fun run() {
         openConvenience()
-
+        buyProduct()
     }
 
     fun openConvenience() {
@@ -38,5 +39,9 @@ class ConvenienceController() {
 
     fun introductionProducts() {
         OutputView().outputProducts(promotionsProducts, normalProducts)
+    }
+
+    fun buyProduct() {
+        InputView().howToUse()
     }
 }
