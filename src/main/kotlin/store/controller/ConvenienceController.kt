@@ -2,6 +2,7 @@ package store.controller
 
 import store.model.NormalProducts
 import store.model.PromotionsProducts
+import store.view.OutputView
 
 class ConvenienceController() {
     private lateinit var normalProducts: List<NormalProducts>
@@ -13,5 +14,9 @@ class ConvenienceController() {
     ) {
         this.promotionsProducts = promotionsProductsList
         this.normalProducts = normalProductList
+    }
+
+    fun openConvenience() {
+        OutputView().introductionConvenience()
     }
 }
