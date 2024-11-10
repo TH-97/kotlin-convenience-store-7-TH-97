@@ -25,10 +25,10 @@ class ConvenienceController() {
 
     fun openConvenience() {
         OutputView().introductionConvenience()
-//        return introductionProducts()
+        return introductionProducts()
     }
 
-//    fun introductionProducts() {
-//        OutputView().outputProducts(promotionsProducts, normalProducts)
-//    }
+    fun introductionProducts() {
+        OutputView().outputProducts(promotionsProducts, normalProducts)
+    }
 }

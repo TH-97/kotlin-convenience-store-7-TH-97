@@ -11,7 +11,7 @@ class NormalProducts(
     }
 
     override fun toString(): String {
-        return "PromotionsProducts(name='$name', price='$price', quantity='$quantity', promotion='$promotion')"
+        return "PromotionsProducts(name='$name', price='$price', quantity='$quantity', promotion='$promotion') \n"
     }
 
     fun getName(): String {
@@ -19,7 +19,11 @@ class NormalProducts(
     }
 
     fun getPrice(): String {
-        return String.format("%,d", price.toInt())
+        return try {
+            String.format("%,d", price.toInt())
+        } catch (e: NumberFormatException) {
+            price
+        }
     }
 
     fun getQuantity(): String {
