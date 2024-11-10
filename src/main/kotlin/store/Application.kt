@@ -2,18 +2,22 @@ package store
 
 import store.controller.ConvenienceController
 import store.model.NormalProducts
+import store.model.Promotion
 import store.model.PromotionsProducts
 import java.io.File
 
 fun main() {
     val filePath = "src/main/resources/products.md"
     val (promotionsProductsList, normalProductList) = parseProductsFile(filePath)
+
+    val promotionFilePath = "src/main/resources/promotions.md"
+    val promotion = parsePromotionFile(promotionFilePath)
+
     ConvenienceController().saveProducts(
         promotionsProductsList as MutableList<PromotionsProducts>,
-        normalProductList as MutableList<NormalProducts>
+        normalProductList as MutableList<NormalProducts>,
+        promotion
     )
-    val promotionFilePath = "src/main/resources/promotions.md"
-    parsePromotionFile(promotionFilePath)
 
 }
 
@@ -39,11 +43,20 @@ fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<Nor
     return Pair(promotionsProducts, normalProducts)
 }
 
-fun parsePromotionFile(promotionFilePath: String) {
+fun parsePromotionFile(promotionFilePath: String): List<Promotion> {
     val lines = File(promotionFilePath).readLines().drop(1)
+    val promotion = mutableListOf<Promotion>()
 
-    lines.forEach { lines ->
+    lines.forEach { line ->
+        val columns = line.split(",")
+        val name = columns[0]
+        val buy = columns[1]
+        val get = columns[2]
+        val startDate = columns[3]
+        val endDate = columns[4]
+        promotion.add(Promotion(name, buy, get, startDate, endDate))
     }
+    return promotion
 }
 
 
