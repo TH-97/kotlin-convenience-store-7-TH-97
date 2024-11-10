@@ -42,6 +42,13 @@ class ConvenienceController() {
     }
 
     fun buyProduct() {
-        InputView().howToUse()
+        val purchasedProduct = InputView().howToUse()
+        while (true) {
+            try {
+                purchasedProduct
+            } catch (e: IllegalArgumentException) {
+                println(e)
+            }
+        }
     }
 }
