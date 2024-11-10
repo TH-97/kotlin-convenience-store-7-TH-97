@@ -6,12 +6,7 @@ import java.io.File
 
 fun main() {
     val filePath = "src/main/resources/products.md"
-    val (_, _) = parseProductsFile(filePath)
-//    val allProducts: List<Products> = PromotionsProductsList + NormalProductList
-//    for (product in allProducts) {
-//        println(product.promotion)
-//    }
-
+    val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
 //    displayProducts(NormalProductList)
 //    displayProducts2(PromotionsProductsList)
 }
