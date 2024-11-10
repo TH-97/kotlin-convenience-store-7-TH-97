@@ -9,8 +9,7 @@ fun main() {
     val filePath = "src/main/resources/products.md"
     val (PromotionsProductsList, NormalProductList) = parseProductsFile(filePath)
     ConvenienceController().saveProducts(PromotionsProductsList, NormalProductList)
-//    displayProducts(NormalProductList)
-//    displayProducts2(PromotionsProductsList)
+    ConvenienceController().openConvenience()
 }
 
 fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<NormalProducts>> {
@@ -35,17 +34,6 @@ fun parseProductsFile(filePath: String): Pair<List<PromotionsProducts>, List<Nor
     return Pair(promotionsProducts, normalProducts)
 }
 
-//fun displayProducts(products: List<NormalProducts>) {
-//    for (product in products) {
-//        println(product.display())
-//    }
-//}
-
-//fun displayProducts2(products: List<PromotionsProducts>) {
-//    for (product in products) {
-//        println(product.display())
-//    }
-//}
 
 
 
