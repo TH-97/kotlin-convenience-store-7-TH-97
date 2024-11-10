@@ -20,7 +20,12 @@ class ConvenienceController() {
             )
         this.promotionsProducts = promotionsProductsList
         this.normalProducts = normalProductList
-        return openConvenience()
+        return run()
+    }
+
+    fun run() {
+        openConvenience()
+
     }
 
     fun openConvenience() {
