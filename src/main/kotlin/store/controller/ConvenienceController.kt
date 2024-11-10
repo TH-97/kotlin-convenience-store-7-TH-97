@@ -13,10 +13,13 @@ class ConvenienceController() {
         promotionsProductsList: MutableList<PromotionsProducts>,
         normalProductList: MutableList<NormalProducts>
     ) {
-        InitializationProducts().initializationProducts(promotionsProductsList, normalProductList)
+        val (promotionsProductsList, normalProductList) =
+            InitializationProducts().initializationProducts(
+                promotionsProductsList,
+                normalProductList
+            )
         this.promotionsProducts = promotionsProductsList
         this.normalProducts = normalProductList
-
         return openConvenience()
     }
 
