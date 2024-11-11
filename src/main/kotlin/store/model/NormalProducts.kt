@@ -26,6 +26,10 @@ class NormalProducts(
         }
     }
 
+    fun getPriceInt(): Int {
+        return price.toInt()
+    }
+
     fun getQuantity(): String {
         return quantity
     }

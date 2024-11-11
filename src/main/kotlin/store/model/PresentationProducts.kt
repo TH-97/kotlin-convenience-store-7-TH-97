@@ -1,6 +1,6 @@
 package store.model
 
-class ShoppingBasket(
+class PresentationProducts(
     private val name: String,
     private var price: Int,
     private var quantity: Int
