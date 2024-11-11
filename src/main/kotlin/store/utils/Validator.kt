@@ -24,7 +24,7 @@ class Validator {
         }
     }
 
-    fun validatefinal(input: String) {
+    fun validateYorN(input: String) {
         require(input == "Y" || input == "N") { "[ERROR] 잘못된 입력입니다. 다시 입력해 주세요." }
     }
 }

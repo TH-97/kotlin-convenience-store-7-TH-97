@@ -83,25 +83,59 @@ object ConvenienceController {
     }
 
     fun checkPromotion(name: String, quantity: Int) {
+        var buy = 0
+        var get = 0
         val product = promotionsProducts.find { it.getName() == name }
-        val buy = promotion.find { it.getName() == product?.getPromotion() }?.getBuy()
-        val get = promotion.find { it.getName() == product?.getPromotion() }?.getGet()
-        if (promotionsProducts.equals(name)) final()
+        val findBuy = promotion.find { it.getName() == product?.getPromotion() }?.getBuy()
+        if (!findBuy.isNullOrEmpty()) buy = findBuy.toInt()
+        val findGet = promotion.find { it.getName() == product?.getPromotion() }?.getGet()
+        if (!findGet.isNullOrEmpty()) get = findGet.toInt()
+        if (promotionsProducts.equals(name)) final() //프로모션 제품이 존재하지 않아서 바로 멥버십 할인으로 안내
         product?.getQuantity()?.toInt()?.let {
-            if (it > quantity)
-
-                checkQuantity(buy, get, name, quantity)
+            if (it >= quantity) {
+                checkQuantity(buy, get, name, quantity) //많거나 같다
+            } else {
+                notEnoughPromotionProduct(name, quantity)
+            }
         }
     }
 
-    fun checkQuantity(buy: String?, get: String?, name: String, quantity: Int) {
+    fun notEnoughPromotionProduct(name: String, quantity: Int) {
+        try {
+            val input = InputView().buyAll(name, quantity)
+            Validator().validateYorN(input)
+            if (input == "Y") final() // 그냥 구매를 하겠다
+            if (input == "N") buyProduct()// 구매 하지 않겠다
+        } catch (e: IllegalArgumentException) {
+            println(e)
+            oneMore(name)
+        }
+    }
 
+    fun checkQuantity(buy: Int, get: Int, name: String, quantity: Int) {
+        if (quantity % buy + get == buy) {
+            oneMore(name)//하나를 더 받을 수 있는 상황
+        } else {
+            final() // 멥버십 할인 안내
+        }
+    }
+
+    fun oneMore(name: String) {
+        try {
+            val input = InputView().oneMorePrint(name)
+            Validator().validateYorN(input)
+            if (input == "Y") return //프로모션 증정을 받겠다
+            if (input == "N") final()//프로모션 증정을 받지 않겠다
+        } catch (e: IllegalArgumentException) {
+            println(e)
+            oneMore(name)
+        }
     }
 
     fun final() {
         try {
-            val input = InputView().MembershipDiscount().trim()
-            Validator().validatefinal(input)
+            val input = InputView().membershipDiscount().trim()
+            Validator().validateYorN(input)
             if (input == "Y") return//멥버십 할인 적용
             if (input == "N") return //멥버십 할인 미적용
         } catch (e: IllegalArgumentException) {
