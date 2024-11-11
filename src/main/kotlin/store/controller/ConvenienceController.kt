@@ -224,6 +224,12 @@ object ConvenienceController {
             discountedAmount,
             membership
         )
+        shoppingBasket = mutableListOf()
+        presentationProduct = mutableListOf() //증정 list
+        purchaseAmount = 0 //현재 구입 예정 금액
+        discountedAmount = 0 //프로모션 할인 예정 금액
+        membership = 0 // 멥버십 할인 예정 금액
+
     }
 
 }
