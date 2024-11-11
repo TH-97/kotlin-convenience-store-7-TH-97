@@ -23,4 +23,8 @@ class Validator {
             ) { "[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요." }
         }
     }
+
+    fun validatefinal(input: String) {
+        require(input == "Y" || input == "N") { "[ERROR] 잘못된 입력입니다. 다시 입력해 주세요." }
+    }
 }

@@ -33,7 +33,7 @@ class OutputView {
             if (find.isNotEmpty())
                 println(
                     "- ${find.first().getName()} ${find.first().getPrice()}원 " +
-                            " ${find.first().getQuantity()}개 ${find.first().getPromotion()}"
+                            "${find.first().getQuantity()}개 ${find.first().getPromotion()}"
                 )
             println("- ${value.getName()} ${value.getPrice()}원 ${value.getQuantity()}개")
         }
@@ -46,8 +46,8 @@ class OutputView {
         if (find.isNotEmpty())
             println(
                 "- ${find.first().getName()} ${find.first().getPrice()}원 " +
-                        " ${find.first().getQuantity()}개 ${find.first().getPromotion()}"
+                        "${find.first().getQuantity()}개 ${find.first().getPromotion()}"
             )
-        println("- ${value.getName()} 이상 원 재고 없음")
+        println("- ${value.getName()} ${value.getPrice()}원 재고 없음")
     }
 }
