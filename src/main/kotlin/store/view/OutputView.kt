@@ -1,7 +1,9 @@
 package store.view
 
 import store.model.NormalProducts
+import store.model.PresentationProducts
 import store.model.PromotionsProducts
+import store.model.ShoppingBasket
 
 class OutputView {
     private lateinit var normalProducts: List<NormalProducts>
@@ -49,5 +51,30 @@ class OutputView {
                         "${find.first().getQuantity()}개 ${find.first().getPromotion()}"
             )
         println("- ${value.getName()} ${value.getPrice()}원 재고 없음")
+    }
+
+    fun outPutNotMembershipReceipt(
+        shoppingBasket: MutableList<ShoppingBasket>,
+        presentationProduct: MutableList<PresentationProducts>,
+        purchaseAmount: Int,
+        discountedAmount: Int,
+        membership1: Int
+    ) {
+        println("==============W 편의점================")
+        println("상품명\t\t수량\t금액")
+        for (value in shoppingBasket) {
+            println("${value.getName()}\t\t${value.getQuantity()}\t${value.getPrice()}")
+        }
+        println("=============증\t정===============")
+        println("상품명\t\t수량\t금액")
+        for (value in presentationProduct) {
+            println("${value.getName()}\t\t${value.getPrice()}\t")
+        }
+        println("====================================")
+        println("총구매액\t\t\t${String.format("%,d", purchaseAmount)}")
+        println("행사할인\t\t\t-${String.format("%,d", discountedAmount)}")
+        println("멤버십할인\t\t\t-0")
+        println("내실돈\t\t\t ${String.format("%,d", purchaseAmount - discountedAmount)}")
+
     }
 }

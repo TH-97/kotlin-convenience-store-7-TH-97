@@ -22,6 +22,10 @@ class PromotionsProducts(
         return String.format("%,d", price.toInt())
     }
 
+    fun getPriceInt(): Int {
+        return price.toInt()
+    }
+
     fun getQuantity(): String {
         return quantity
     }

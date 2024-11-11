@@ -1,10 +1,10 @@
 package store.controller
 
 import store.model.NormalProducts
+import store.model.PresentationProducts
 import store.model.Promotion
 import store.model.PromotionsProducts
 import store.model.ShoppingBasket
-import store.model.PresentationProducts
 import store.utils.Validator
 import store.view.InputView
 import store.view.OutputView
@@ -89,12 +89,17 @@ object ConvenienceController {
             purchaseAmount += price * parts[1].toInt() // 구입 예정 금액 더하기
 //            return checkPromotion(parts[0], parts[1].toInt())
         }
-        tryCatch()
+        if (tryCatch()) final()
     }
 
-    fun tryCatch() {
-        for (value in shoppingBasket) {
-            checkPromotion(value.getName(), value.getQuantity().toInt())
+    fun tryCatch(): Boolean {
+        return try {
+            for (value in shoppingBasket) {
+                checkPromotion(value.getName(), value.getQuantity().toInt())
+            }
+            true
+        } catch (e: IllegalArgumentException) {
+            false
         }
     }
 
@@ -142,7 +147,7 @@ object ConvenienceController {
     }
 
     fun checkQuantity(buy: Int, get: Int, name: String, quantity: Int) {
-        if (quantity % buy + get == buy) {
+        if (quantity % (buy + get) == buy) {
             oneMore(name)//하나를 더 받을 수 있는 상황
         }
     }
@@ -158,8 +163,8 @@ object ConvenienceController {
                 if (basketItem != null && normalPrice != null) {
                     basketItem.setPrice(basketItem.getPrice() + normalPrice)
                     basketItem.setQuantity(basketItem.getQuantity() + 1)
+                    purchaseAmount += normalPrice
                 }
-                return
             }
             if (input == "N") return//프로모션 증정을 받지 않겠다
         } catch (e: IllegalArgumentException) {
@@ -183,7 +188,7 @@ object ConvenienceController {
     }
 
     fun notMembershipReceipt() {
-        for(value in shoppingBasket){
+        for (value in shoppingBasket) {
             val products = promotionsProducts.find { it.getName() == value.getName() }
             if (products != null) {
                 var buy = 0
@@ -193,15 +198,29 @@ object ConvenienceController {
                 val findGet = promotion.find { it.getName() == products?.getPromotion() }?.getGet()
                 if (!findGet.isNullOrEmpty()) get = findGet.toInt()
                 var productName = products.getName()
-                var bonusQuantity = value.getQuantity() / buy + get
-                discountedAmount = products.getPrice().toInt() * bonusQuantity
-                presentationProduct.add(PresentationProducts(productName, bonusQuantity, discountedAmount))
+                var bonusQuantity = value.getQuantity() / (buy + get)
+
+                var discountedAmountProduct = products.getPriceInt() * bonusQuantity
+                discountedAmount += products.getPriceInt() * bonusQuantity
+                presentationProduct.add(
+                    PresentationProducts(
+                        productName,
+                        bonusQuantity,
+                        discountedAmountProduct
+                    )
+                )
             }
 
 
         }
 
-        (shoppingBasket,presentationProduct,purchaseAmount,membership)
+        OutputView().outPutNotMembershipReceipt(
+            shoppingBasket,
+            presentationProduct,
+            purchaseAmount,
+            discountedAmount,
+            membership
+        )
     }
 
 }
