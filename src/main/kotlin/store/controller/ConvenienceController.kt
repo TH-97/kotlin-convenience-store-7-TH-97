@@ -27,7 +27,10 @@ object ConvenienceController {
         this.promotionsProducts = promotionsProductLists
         this.normalProducts = normalProductLists
         this.promotion = promotion
+        for (value in promotionsProducts) {
+            promotion.find { it.getName() == value.getName() }
 
+        }
         run()
     }
 
