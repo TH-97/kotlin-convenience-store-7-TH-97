@@ -15,7 +15,6 @@ class Validator {
             val productName = parts[0]
             val productQuality = parts[1].toInt()
             require(ConvenienceController.checkProduct(productName)) { "[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요." }
-
             require(
                 ConvenienceController.checkProductQuality(
                     productName,
